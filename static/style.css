@@ -22,7 +22,7 @@ body {
     gap: 20px;
     text-align: center;
     padding-top: 30px;
-    width: 80%;
+    width: 60%;
 }
 
 .meuanjo {
@@ -73,6 +73,14 @@ canvas {
 }
 
 .radio-toolbar{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-direction: row;
+}
+
+.inputs{
     display: flex;
     justify-content: center;
     gap: 20px;

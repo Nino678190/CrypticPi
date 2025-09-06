@@ -20,7 +20,7 @@ def encryption_key_gen(password):
 
 @app.route('/')
 def index():
-    return render_template('test.html')
+    return render_template('index.html')
 
 @app.route('/sendMessage', methods=['POST'])
 def sendMessage():

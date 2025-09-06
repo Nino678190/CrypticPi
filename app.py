@@ -16,7 +16,7 @@ def load_config():
 
 
 config = load_config()
-password = config['encryption_password']
+password = config['encryption_password'].encode()  # Convert to bytes
 
 
 salt = os.urandom(16)
@@ -27,6 +27,7 @@ kdf = PBKDF2HMAC(
     iterations=100000,
     backend=default_backend()
 )
+print("Password:", password)
 encryption_key = kdf.derive(password)
 
 
@@ -37,9 +38,12 @@ def index():
 @app.route('/sendMessage', methods=['POST'])
 def send_message():
     message = request.form.get('message')
+    message = message.encode()
     print('Message: ', message)
     cipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
+    print("Cipher:", cipher)
     encryptor = cipher.encryptor()
+    print("Encryptor:", encryptor)
     ciphertext = encryptor.update(message) + encryptor.finalize()
     return "<p>Das ist die verschlüsselte Nachricht: {}</p>".format(ciphertext)
 

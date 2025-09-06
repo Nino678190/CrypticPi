@@ -89,10 +89,6 @@ canvas {
     width: 100%;
 }
 
-canvas {
-    display: none !important;
-}
-
 .radio-toolbar{
     display: flex;
     justify-content: center;

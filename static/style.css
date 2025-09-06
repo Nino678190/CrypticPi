@@ -7,6 +7,11 @@ h1 {
     padding-top: 30px;
 }
 
+@font-face {
+    font-family: 'quicksand';
+    src: url(static/Quicksand-Regular.ttf);
+}
+
 body {
     background-color: rgb(8, 46, 42);
     background: linear-gradient(#0d3834, #8befe7);

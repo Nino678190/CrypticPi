@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'quicksand';
+    src: url(static/Quicksand-Regular.ttf);
+}
+
 h1 {
     color: rgb(167, 14, 44);
     font-size: 60px;
@@ -7,10 +12,6 @@ h1 {
     padding-top: 30px;
 }
 
-@font-face {
-    font-family: 'quicksand';
-    src: url(static/Quicksand-Regular.ttf);
-}
 
 body {
     background-color: rgb(8, 46, 42);

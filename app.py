@@ -48,6 +48,7 @@ def send_message():
     encryptor = cipher.encryptor()
     print("Encryptor:", encryptor)
     ciphertext = encryptor.update(message) + encryptor.finalize()
+    ciphertext = ciphertext.decode('latin1')  # Convert to string for easy transmission
     return "<p>Das ist die verschlüsselte Nachricht: {}</p>".format(ciphertext)
 
 @app.route('/decrypt', methods=['POST'])

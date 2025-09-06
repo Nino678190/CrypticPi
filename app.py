@@ -58,6 +58,6 @@ def decrypt():
     decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
     decryptor = decipher.decryptor()
     decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
-    decrypted_text = decrypted_text.encode('utf-8')
+    decrypted_text = decrypted_text.decode('utf-8')
     return "<p>Das ist die entschlüsselte Nachricht: {}</p>".format(decrypted_text)
 

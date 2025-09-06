@@ -17,7 +17,6 @@ def encryption_key_gen(password):
         iterations=100000,
         backend=default_backend()
     )
-    print("Password:", password)
     return kdf.derive(password)
 
 

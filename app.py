@@ -35,6 +35,8 @@ def send_message():
     message = message.encode()
     password = request.form.get('password')
     password = password.strip().encode()
+    if not message or not password:
+        return render_template('ergebnis.html', message="Fehler: Nachricht und Passwort dürfen nicht leer sein.")
     # Pad the message to be a multiple of 16 bytes
     padding_length = 16 - (len(message) % 16)
     message = message + bytes([padding_length] * padding_length)
@@ -43,7 +45,7 @@ def send_message():
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(message) + encryptor.finalize()
     ciphertext = ciphertext.hex() # Convert to string for easy transmission
-    return render_template('ergebnis_test.html', message=ciphertext)
+    return render_template('ergebnis.html', message=ciphertext)
 
 
 @app.route('/decrypt', methods=['POST'])
@@ -55,7 +57,8 @@ def decrypt():
         password = request.form.get('password')
         password = password.strip()
         password = password.encode()
-
+        if not ciphertext or not password:
+            return render_template('ergebnis.html', message="Fehler: Nachricht und Passwort dürfen nicht leer sein.")
         ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
         encryption_key = encryption_key_gen(password)
         decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend()) # Auch möglich mit modes.GMC()

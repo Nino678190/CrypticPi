@@ -6,7 +6,6 @@
 h1 {
     color: rgb(167, 14, 44);
     font-size: 60px;
-    font-family: quicksand;
     text-align: center;
     margin: 0;
     padding-top: 30px;
@@ -21,6 +20,7 @@ body {
     margin: 0;
     color: white;
     width: 100%;
+    font-family: quicksand;
 }
 
 .lele {
@@ -31,6 +31,11 @@ body {
     padding-top: 30px;
     width: 60%;
     align-items: center;
+}
+
+.lele>p{
+    font-size: large;
+    margin: 0;
 }
 
 button{
@@ -89,7 +94,6 @@ canvas {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-bottom: 20px;
     flex-direction: row;
 }
 

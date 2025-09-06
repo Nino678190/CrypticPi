@@ -1,0 +1,5 @@
+{
+    "verschluesselung": "bcrypt",
+    "serial_port": "/dev/ttyUSB0",
+    "port_baudrate": 9600
+}

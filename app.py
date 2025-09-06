@@ -47,18 +47,22 @@ def send_message():
 
 @app.route('/decrypt', methods=['POST'])
 def decrypt():
-    ciphertext = request.form.get('message')
-    ciphertext = ciphertext.strip()
-    ciphertext = ciphertext.encode()
-    password = request.form.get('password')
-    password = password.strip()
-    password = password.encode()
+    try:
+        ciphertext = request.form.get('message')
+        ciphertext = ciphertext.strip()
+        ciphertext = ciphertext.encode()
+        password = request.form.get('password')
+        password = password.strip()
+        password = password.encode()
 
-    ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
-    encryption_key = encryption_key_gen(password)
-    decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
-    decryptor = decipher.decryptor()
-    decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
-    decrypted_text = decrypted_text.decode('utf-8')
-    return "<p>Das ist die entschlüsselte Nachricht: {}</p>".format(decrypted_text)
+        ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
+        encryption_key = encryption_key_gen(password)
+        decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
+        decryptor = decipher.decryptor()
+        decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
+        decrypted_text = decrypted_text.decode('utf-8')
+        return "<p>Das ist die entschlüsselte Nachricht: {}</p>".format(decrypted_text)
+    except UnicodeDecodeError:
+        return "<p>Fehler: Ungültiger Schlüssel oder Nachricht.</p> <button onclick='window.history.back();'>Zurück</button>"
+    
 

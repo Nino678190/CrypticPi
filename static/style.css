@@ -23,8 +23,9 @@ body {
     background-size: cover;
     height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     color: white;
-    width: 100%;
+    width: 100vw;
     font-family: quicksand;
     accent-color: rgb(167, 14, 44);
 }
@@ -69,10 +70,6 @@ button{
     top: 10px;
     right: 10px;
     transform: rotate(40deg);
-}
-
-body {
-    margin: 0;
 }
 
 canvas {

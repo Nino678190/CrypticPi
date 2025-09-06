@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import json
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
@@ -22,11 +22,11 @@ def encryption_key_gen(password):
 
 @app.route('/')
 def index():
-    return "Hello, World!"
+    return render_template('index.html', data=data)
 
 @app.route('/sendMessage', methods=['POST'])
 def sendMessage():
-    if request.form.get('encrypt') == 'true':
+    if request.form.get('encrypt') == 'encrypt':
         return send_message()
     else:
         return decrypt()

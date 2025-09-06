@@ -39,11 +39,12 @@ def send_message():
     padding_length = 16 - (len(message) % 16)
     message = message + bytes([padding_length] * padding_length)
     encryption_key = encryption_key_gen(password)
-    cipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
+    cipher = Cipher(algorithms.AES(encryption_key), modes.GCM(), backend=default_backend())
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(message) + encryptor.finalize()
     ciphertext = ciphertext.hex() # Convert to string for easy transmission
-    return "<p>Das ist die verschlüsselte Nachricht: {}</p> <button onclick='window.history.back();'>Zurück</button>".format(ciphertext)
+    return render_template('ergebnis.html', {'message': ciphertext})
+
 
 @app.route('/decrypt', methods=['POST'])
 def decrypt():
@@ -57,12 +58,12 @@ def decrypt():
 
         ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
         encryption_key = encryption_key_gen(password)
-        decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
+        decipher = Cipher(algorithms.AES(encryption_key), modes.GCM(), backend=default_backend())
         decryptor = decipher.decryptor()
         decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
         decrypted_text = decrypted_text.decode('utf-8')
-        return "<p>Das ist die entschlüsselte Nachricht: {}</p>".format(decrypted_text)
+        return render_template('ergebnis.html', {'message': decrypted_text})
     except UnicodeDecodeError:
-        return "<p>Fehler: Ungültiger Schlüssel oder Nachricht.</p> <button onclick='window.history.back();'>Zurück</button>"
+        return render_template('ergebnis.html', {'message': ciphertext})
     
 

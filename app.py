@@ -43,7 +43,7 @@ def send_message():
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(message) + encryptor.finalize()
     ciphertext = ciphertext.hex() # Convert to string for easy transmission
-    return render_template('ergebnis.html', {'message': ciphertext})
+    return render_template('ergebnis.html', message=ciphertext)
 
 
 @app.route('/decrypt', methods=['POST'])
@@ -64,6 +64,6 @@ def decrypt():
         decrypted_text = decrypted_text.decode('utf-8')
         return render_template('ergebnis.html', {'message': decrypted_text})
     except UnicodeDecodeError:
-        return render_template('ergebnis.html', {'message': ciphertext})
+        return render_template('ergebnis.html', message=ciphertext)
     
 

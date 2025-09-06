@@ -55,8 +55,6 @@ def send_message():
 def decrypt():
     ciphertext = request.form.get('message')
     print("Ciphertext received:", ciphertext)
-    ciphertext = ciphertext.encode()
-    print("Ciphertext encoded:", ciphertext)
     ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
     print("Ciphertext bytes:", ciphertext)
     decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())

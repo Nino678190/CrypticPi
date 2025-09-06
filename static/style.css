@@ -59,3 +59,7 @@ canvas {
     position: relative;
     z-index: 1;
 }
+
+canvas {
+    display: none !important;
+}

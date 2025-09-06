@@ -8,27 +8,27 @@ import os
 
 app = Flask(__name__)
 
-def load_config():
-    with open("config.json", "r") as f:
-        config = json.load(f)
+# def load_config():
+#     with open("config.json", "r") as f:
+#         config = json.load(f)
 
-    return config
-
-
-config = load_config()
-password = config['encryption_password'].encode()  # Convert to bytes
+#     return config
 
 
-salt = os.urandom(16)
-kdf = PBKDF2HMAC(
-    algorithm=hashes.SHA256(),
-    length=32,
-    salt=salt,
-    iterations=100000,
-    backend=default_backend()
-)
-print("Password:", password)
-encryption_key = kdf.derive(password)
+# config = load_config()
+# password = config['encryption_password'].encode()  # Convert to bytes
+
+def encryption_key_gen(password):
+    salt = os.urandom(16)
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=100000,
+        backend=default_backend()
+    )
+    print("Password:", password)
+    return kdf.derive(password)
 
 
 @app.route('/')
@@ -40,9 +40,12 @@ def send_message():
     message = request.form.get('message')
     message = message.strip()
     message = message.encode()
+    password = request.form.get('password')
+    password = password.strip().encode()
     # Pad the message to be a multiple of 16 bytes
     padding_length = 16 - (len(message) % 16)
     message = message + bytes([padding_length] * padding_length)
+    encryption_key = encryption_key_gen(password)
     cipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(message) + encryptor.finalize()
@@ -54,9 +57,12 @@ def decrypt():
     ciphertext = request.form.get('message')
     ciphertext = ciphertext.strip()
     ciphertext = ciphertext.encode()
+    password = request.form.get('password')
+    password = password.strip()
+    password = password.encode()
 
     ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
-
+    encryption_key = encryption_key_gen(password)
     decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
     decryptor = decipher.decryptor()
     decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()

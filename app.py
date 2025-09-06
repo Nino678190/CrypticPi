@@ -49,7 +49,7 @@ def send_message():
     print("Encryptor:", encryptor)
     ciphertext = encryptor.update(message) + encryptor.finalize()
     ciphertext = ciphertext.hex() # Convert to string for easy transmission
-    return "<p>Das ist die verschlüsselte Nachricht: {}</p>".format(ciphertext)
+    return "<p>Das ist die verschlüsselte Nachricht: {}</p> <button onclick='window.history.back();'>Zurück</button>".format(ciphertext)
 
 @app.route('/decrypt', methods=['POST'])
 def decrypt():

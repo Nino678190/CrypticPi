@@ -43,7 +43,7 @@ def send_message():
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(message) + encryptor.finalize()
     ciphertext = ciphertext.hex() # Convert to string for easy transmission
-    return render_template('ergebnis.html', message=ciphertext)
+    return render_template('ergebnis_test.html', message=ciphertext)
 
 
 @app.route('/decrypt', methods=['POST'])

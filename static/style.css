@@ -1,0 +1,61 @@
+h1 {
+    color: rgb(167, 14, 44);
+    font-size: 60px;
+    font-family: quicksand;
+    text-align: center;
+    margin: 0;
+    padding-top: 30px;
+}
+
+body {
+    background-color: rgb(8, 46, 42);
+    background: linear-gradient(#0d3834, #8befe7);
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    color: white
+}
+
+.lele {
+    text-align: center;
+    padding-top: 30px;
+
+}
+
+.meuanjo {
+    font-size: 25px;
+}
+
+.links-unten {
+    height: 18vh;
+    width: 18vh;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    transform: rotate(320deg)
+}
+
+.rechts-oben {
+    height: 18vh;
+    width: 18vh;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transform: rotate(40deg)
+}
+
+body {
+    margin: 0;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.rahmen {
+    position: relative;
+    z-index: 1;
+}

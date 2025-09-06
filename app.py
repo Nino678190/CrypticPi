@@ -38,38 +38,28 @@ def index():
 @app.route('/sendMessage', methods=['POST'])
 def send_message():
     message = request.form.get('message')
-    print("1. Message received:", message)
+    message = message.strip()
     message = message.encode()
-    print("2. Message encoded:", message)
     # Pad the message to be a multiple of 16 bytes
     padding_length = 16 - (len(message) % 16)
     message = message + bytes([padding_length] * padding_length)
-    print("3. Padded message:", message)
     cipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
-    print("4. Cipher created:", cipher)
     encryptor = cipher.encryptor()
-    print("5. Encryptor created:", encryptor)
     ciphertext = encryptor.update(message) + encryptor.finalize()
-    print("6. Ciphertext bytes:", ciphertext)
     ciphertext = ciphertext.hex() # Convert to string for easy transmission
-    print("7. Ciphertext hex:", ciphertext)
     return "<p>Das ist die verschlüsselte Nachricht: {}</p> <button onclick='window.history.back();'>Zurück</button>".format(ciphertext)
 
 @app.route('/decrypt', methods=['POST'])
 def decrypt():
     ciphertext = request.form.get('message')
-    print("1. Ciphertext received:", ciphertext)
+    ciphertext = ciphertext.strip()
     ciphertext = ciphertext.encode()
-    print("2. Ciphertext encoded:", ciphertext)
+
     ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
-    print("3. Ciphertext bytes:", ciphertext)
+
     decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
-    print("4. Decipher created:", decipher)
     decryptor = decipher.decryptor()
-    print("5. Decryptor created:", decryptor)
     decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
-    print("6. Decrypted text bytes:", decrypted_text)
     decrypted_text = decrypted_text.decode('utf-8')
-    print("7. Decrypted text decoded:", decrypted_text)
     return "<p>Das ist die entschlüsselte Nachricht: {}</p>".format(decrypted_text)
 

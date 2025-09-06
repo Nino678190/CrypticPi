@@ -63,3 +63,11 @@ canvas {
 canvas {
     display: none !important;
 }
+
+.radio-toolbar{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-direction: row;
+}

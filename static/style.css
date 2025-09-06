@@ -3,6 +3,11 @@
     src: url(fonts/Quicksand-Medium.ttf);
 }
 
+::selection {
+    background: rgb(167, 14, 44);
+    color: white;
+}
+
 h1 {
     color: rgb(167, 14, 44);
     font-size: 60px;

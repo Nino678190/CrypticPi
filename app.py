@@ -54,7 +54,9 @@ def send_message():
 @app.route('/decrypt', methods=['POST'])
 def decrypt():
     ciphertext = request.form.get('message')
+    print("Ciphertext received:", ciphertext)
     ciphertext = ciphertext.encode()
+    print("Ciphertext encoded:", ciphertext)
     decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
     decryptor = decipher.decryptor()
     decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()

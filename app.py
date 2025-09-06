@@ -19,7 +19,7 @@ app = Flask(__name__)
 # password = config['encryption_password'].encode()  # Convert to bytes
 
 def encryption_key_gen(password):
-    salt = os.urandom(16)
+    salt = 'Das ist ein Salz'.encode()  # Use a fixed salt for simplicity; in production, use a secure random salt and store it
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,

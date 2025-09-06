@@ -39,6 +39,9 @@ def index():
 def send_message():
     message = request.form.get('message')
     message = message.encode()
+    # Pad the message to be a multiple of 16 bytes
+    padding_length = 16 - (len(message) % 16)
+    message = message + bytes([padding_length] * padding_length)
     print('Message: ', message)
     cipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend())
     print("Cipher:", cipher)

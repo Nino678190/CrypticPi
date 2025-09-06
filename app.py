@@ -8,18 +8,8 @@ import os
 
 app = Flask(__name__)
 
-# def load_config():
-#     with open("config.json", "r") as f:
-#         config = json.load(f)
-
-#     return config
-
-
-# config = load_config()
-# password = config['encryption_password'].encode()  # Convert to bytes
-
 def encryption_key_gen(password):
-    salt = 'Das ist ein Salz'.encode()  # Use a fixed salt for simplicity; in production, use a secure random salt and store it
+    salt = 'Das ist ein Salz'.encode()
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
@@ -36,6 +26,12 @@ def index():
     return "Hello, World!"
 
 @app.route('/sendMessage', methods=['POST'])
+def sendMessage():
+    if request.form.get('encrypt') == 'true':
+        return send_message()
+    else:
+        return decrypt()
+
 def send_message():
     message = request.form.get('message')
     message = message.strip()

@@ -27,6 +27,8 @@ button:active {
     align-items: center;
     height: 100vh;
     width: 100vw;
+    background-color: rgb(49, 51, 51);
+    border: 1px solid rgb(167, 14, 44);
 }
 
 .message{

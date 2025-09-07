@@ -15,7 +15,7 @@
                 <p class="message">{{ message }}</p>
                 <section class="buttons">
                     <button onclick="window.history.back()">Zurück</button>
-                    <button>Copy</button>
+                    <button onclick="navigator.clipboard.writeText('{{ message }}')">Copy</button>
                 </section>
             </section>
         </div>

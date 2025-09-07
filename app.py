@@ -64,9 +64,10 @@ def decrypt():
         decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend()) # Auch möglich mit modes.GMC()
         decryptor = decipher.decryptor()
         decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
-        decrypted_text = decrypted_text.decode('utf-8')
+        decrypted_text = decrypted_text.decode('utf-8').strip()
+        print(decrypted_text)
         return render_template('ergebnis.html', message=decrypted_text)
     except UnicodeDecodeError:
-        return render_template('ergebnis.html', message=ciphertext)
+        return render_template('ergebnis.html', message="Fehler: Falscher Input oder Passwort")
     
 

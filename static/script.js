@@ -5,40 +5,15 @@ var canvas = document.getElementById("canvas"),
     // full screen dimensions
     cw = window.innerWidth,
     ch = window.innerHeight,
-    charArr = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z",
-    ],
+    charArr = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",],
     maxCharCount = 100,
     fallingCharArr = [],
     fontSize = 10,
     maxColums = cw / fontSize;
 canvas.width = canvas2.width = cw;
+width = canvas2.width;
 canvas.height = canvas2.height = ch;
+height = canvas2.height;
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -46,6 +21,15 @@ function randomInt(min, max) {
 
 function randomFloat(min, max) {
     return Math.random() * (max - min) + min;
+}
+
+function checkSize(){
+    if (window.innerWidth !== cw){
+        canvas.width = canvas2.width = window.innerWidth
+    }
+    if (window.innerHeight !== ch){
+        canvas.height = canvas2.height = window.innerHeight
+    }
 }
 
 function Point(x, y) {
@@ -88,7 +72,7 @@ var update = function () {
         fallingCharArr[i].draw(ctx);
         var v = fallingCharArr[i];
     }
-
+    checkSize();
     requestAnimationFrame(update);
 };
 

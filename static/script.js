@@ -30,6 +30,7 @@ function checkSize(){
     if (window.innerHeight !== ch){
         canvas.height = canvas2.height = window.innerHeight
     }
+    return;
 }
 
 function Point(x, y) {

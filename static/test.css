@@ -27,8 +27,7 @@ button:active {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(49, 51, 51, 0.8);
-    border: 1px solid rgb(167, 14, 44);
+    
 }
 
 .message{
@@ -44,4 +43,18 @@ button:active {
     display: flex;
     gap: 20px;
     flex-direction: row;
+}
+
+.output-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: rgba(49, 51, 51, 0.8);
+    border: 1px solid rgb(167, 14, 44);
+    height: fit-content;
+    width: fit-content;
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }

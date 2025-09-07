@@ -58,3 +58,12 @@ button:active {
     border-radius: 12px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+@media screen and (max-width: 600px) {
+    .message{
+        font-size: large;
+    }
+    .output{
+        font-size: medium;
+    }
+}

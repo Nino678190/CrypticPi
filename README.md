@@ -32,8 +32,8 @@ This project implements a simple web application for encrypting and decrypting m
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository_url>
-    cd <repository_directory>
+    git clone https://github.com/Nino678190/CrypticPi.git
+    cd CrypticPi
     ```
 
 2.  **Install the required Python packages:**

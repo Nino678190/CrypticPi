@@ -25,12 +25,18 @@ function randomFloat(min, max) {
 
 function checkSize(){
     if (window.innerWidth !== cw){
-        canvas.width = canvas2.width = window.innerWidth
+        cw = window.innerWidth;
+        canvas.width = canvas2.width = cw;
+        maxColums = cw / fontSize;
+        fallingCharArr = [];
+        for (var i = 0; i < maxColums; i++) {
+            fallingCharArr.push(new Point(i * fontSize, randomFloat(-500, 0)));
+        }
     }
     if (window.innerHeight !== ch){
-        canvas.height = canvas2.height = window.innerHeight
+        ch = window.innerHeight;
+        canvas.height = canvas2.height = ch;
     }
-    return;
 }
 
 function Point(x, y) {

@@ -18,7 +18,7 @@ h1 {
 
 
 body {
-    background-color: rgb(8, 46, 42);
+    background-color: rgb(8, 46, 42) !important;
     /* background: linear-gradient(#0d3834, #8befe7); */
     background-size: cover;
     height: 100vh;

@@ -20,3 +20,20 @@ button:active {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     transform: translateY(2px);
 }
+
+.rahmen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.message{
+    font-size: x-large;
+}
+
+.output{
+    font-size: large;
+    margin-bottom: 20px;
+}

@@ -11,7 +11,7 @@
     <body>
         <div class="rahmen">
             <h1>Cryptic Pi</h1>
-            <form class="lele" method=post action="http://10.0.0.156:5000/sendMessage">
+            <form class="lele" method=post action="/sendMessage" enctype="multipart/form-data">
                 <p>Please select an option.</p>
                 <section class="radio-toolbar">
                     <section>
@@ -25,6 +25,7 @@
                 </section>
                 <section class="inputs">
                     <input class="meuanjo" type="text" placeholder="Message" name="message">
+                    <input type="file" name="file" id="file">
                     <input class="meuanjo" type="password" placeholder="Password" name="password"><br>
                 </section>
                 <button type=submit>Encrypt/Decrypt</button>

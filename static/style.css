@@ -19,7 +19,6 @@ h1 {
 
 body {
     background-color: rgb(8, 46, 42) !important;
-    /* background: linear-gradient(#0d3834, #8befe7); */
     background-size: cover;
     height: 100vh;
     margin: 0;
@@ -101,6 +100,11 @@ canvas {
     gap: 20px;
     margin-bottom: 20px;
     flex-direction: row;
+}
+
+.message{
+    word-break: break-all;
+    font-size: x-small;
 }
 
 @media screen and (max-width: 600px) {

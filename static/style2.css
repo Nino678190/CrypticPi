@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'quicksand';
+    src: url(fonts/Quicksand-Medium.ttf);
+}
+
+body{
+    background-color: #101010 !important;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+    font-family: quicksand;
+}
+
+/* From Uiverse.io by Xtenso */
+.filter-switch {
+    border: 2px solid rgb(0, 136, 0);
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 400px;
+    overflow: hidden;
+}
+
+.filter-switch input {
+    display: none;
+}
+
+.filter-switch label {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.5s;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.filter-switch .background {
+    position: absolute;
+    width: 49%;
+    height: 38px;
+    background-color: rgb(0, 136, 0);
+    top: 4px;
+    left: 4px;
+    border-radius: 30px;
+    transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#option2:checked~.background {
+    left: 50%;
+}
+
+#option1:checked+label[for="option1"] {
+    color: #212121;
+    font-weight: bold;
+}
+
+#option2:checked+label[for="option2"] {
+    color: #212121;
+    font-weight: bold;
+}
+
+#option1:not(:checked)+label[for="option1"],
+#option2:not(:checked)+label[for="option2"] {
+    color: #7d7d7d;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    color: white;
+    width: 100vw;
+    font-family: quicksand;
+    accent-color: rgb(167, 14, 44);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    padding-top: 30px;
+    width: 60%;
+    align-items: center;
+}
+
+#file{
+    display: none;
+}
+
+button{
+    max-width: 150px;
+    background-color: #212121;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+button:hover {
+    background-color: rgb(30, 30, 30);
+}
+
+button:active {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
+}
+
+input{
+    max-width: 300px;
+    border-radius: 12px;
+    border: 1px solid rgb(0, 100, 0);
+    padding: 8px 16px;
+    font-size: large;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #212121;
+    color: white;
+}
+
+input[type="file"]{
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    font-size: medium;
+}
+
+.delete{
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+    cursor: pointer;
+}
+
+svg{
+    width: 30px;
+    height: 30px;
+    fill: white;
+}

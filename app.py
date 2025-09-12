@@ -4,6 +4,9 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import base64
+import os
+from io import BytesIO
+from flask import send_file
 
 app = Flask(__name__)
 
@@ -21,7 +24,7 @@ def encryption_key_gen(password):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index2.html')
 
 @app.route('/sendMessage', methods=['POST'])
 def sendMessage():
@@ -45,10 +48,9 @@ def sendMessage():
         return decrypt(message, password, file)
 
 def send_message(message, password, file=False):
-    message = message.strip()
-    if not file:
-        message = base64.b64encode(message.decode())
+    message = message.strip().decode()
     password = password.strip().encode()
+    print(message)
     if not message or not password:
         return render_template('ergebnis.html', message="Fehler: Nachricht und Passwort dürfen nicht leer sein.")
     # Pad the message to be a multiple of 16 bytes
@@ -59,6 +61,18 @@ def send_message(message, password, file=False):
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(message) + encryptor.finalize()
     ciphertext = ciphertext.hex() # Convert to string for easy transmission
+    if len(ciphertext) > 250:
+        # Create in-memory file
+        mem_file = BytesIO()
+        mem_file.write(ciphertext.encode())
+        mem_file.seek(0)
+
+        return send_file(
+            mem_file,
+            as_attachment=True,
+            download_name='encrypted_message.txt',
+            mimetype='text/plain'
+        )
     return render_template('ergebnis.html', message=ciphertext)
 
 
@@ -77,10 +91,23 @@ def decrypt(ciphertext, password, file=False):
         decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend()) # Auch möglich mit modes.GMC()
         decryptor = decipher.decryptor()
         decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
-        decrypted_text = base64.b64decode(decrypted_text)  # Decode from base64
+        print(decrypted_text)
+        # decrypted_text = base64.b64decode(decrypted_text)  # Decode from base64
+        # print(decrypted_text)
         if not file:
             decrypted_text = decrypted_text.decode('utf-8').strip()
-        
+        if file:            
+            # Create in-memory file
+            mem_file = BytesIO()
+            mem_file.write(decrypted_text)
+            mem_file.seek(0)
+
+            return send_file(
+                mem_file,
+                as_attachment=True,
+                download_name='decrypted_message.txt',
+                mimetype='text/plain'
+            )
         return render_template('ergebnis.html', message=decrypted_text)
     except UnicodeDecodeError:
         return render_template('ergebnis.html', message="Fehler: Falscher Input oder Passwort")

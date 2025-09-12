@@ -96,10 +96,6 @@ form{
     align-items: center;
 }
 
-#file{
-    display: none;
-}
-
 button{
     max-width: 150px;
     background-color: #212121;

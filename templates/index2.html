@@ -58,6 +58,15 @@
         </main>
         <footer></footer>
         <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                if (document.getElementById('option1').checked) {
+                    document.getElementById('message').style.display = 'flex';
+                    document.getElementById('file').style.display = 'none';
+                } else {
+                    document.getElementById('message').style.display = 'none';
+                    document.getElementById('file').style.display = 'flex';
+                }
+            });
             document.getElementById('firstFilter').addEventListener('change', (e) => {
                 if (e.target.id === 'option1'){
                     document.getElementById('message').style.display = 'flex';

@@ -44,7 +44,7 @@ def sendMessage():
             except UnicodeDecodeError:
                 return render_template('ergebnis.html', message="Fehler: Die Datei muss UTF-8 kodiert sein.")
     print(request.form.get('encrypt'))
-    if request.form.get('encrypt') == 'encrypt':
+    if request.form.get('encrypt') == 'encrypt': #TODO Fix function
         return send_message(message, password, file)
     else:
         if fileCheck == True:
@@ -67,7 +67,7 @@ def send_message(message, password, file=False):
     cipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend()) # Auch möglich mit modes.GMC()
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(message) + encryptor.finalize()
-    ciphertext = ciphertext.hex()
+    ciphertext = ciphertext.hex() # Convert to string for easy transmission
     if len(ciphertext) > 250:
         # Create in-memory file
         mem_file = BytesIO()
@@ -85,23 +85,29 @@ def send_message(message, password, file=False):
 def decrypt(ciphertext, password, file=False):
     try:
         ciphertext = ciphertext.strip()
-        ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
-
+        if (file):
+            ciphertext = bytes.fromhex(ciphertext.decode())  # Convert back to bytes
+        else :
+            ciphertext = bytes.fromhex(ciphertext)  # Convert back to bytes
         password = password.strip()
         password = password.encode()
         if not ciphertext or not password:
             return render_template('ergebnis.html', message="Fehler: Nachricht und Passwort dürfen nicht leer sein.")
-        
+        # ciphertext = bytes.fromhex(ciphertext.encode())  # Convert back to bytes
         encryption_key = encryption_key_gen(password)
         decipher = Cipher(algorithms.AES(encryption_key), modes.ECB(), backend=default_backend()) # Auch möglich mit modes.GMC()
         decryptor = decipher.decryptor()
         decrypted_text = decryptor.update(ciphertext) + decryptor.finalize()
         print(decrypted_text)
-
+        # decrypted_text = base64.b64decode(decrypted_text)  # Decode from base64
+        # print(decrypted_text)
         if not file:
             decrypted_text = decrypted_text.decode('utf-8').strip()
-        if decrypted_text.__contains__(b'\x0b'):
-            decrypted_text.replace(b'\x0b', b'')
+            if '\x0c' in decrypted_text:  # Use string version for decoded text
+                decrypted_text = decrypted_text.replace('\x0c', '')
+        else:
+            if b'\x0b' in decrypted_text:  # Use bytes version for file data
+                decrypted_text = decrypted_text.replace(b'\x0b', b'')
         if file:            
             # Create in-memory file
             mem_file = BytesIO()

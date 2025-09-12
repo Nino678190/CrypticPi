@@ -8,6 +8,9 @@ import os
 from io import BytesIO
 from flask import send_file
 
+true = True
+false = False
+
 app = Flask(__name__)
 
 def encryption_key_gen(password):
@@ -40,7 +43,8 @@ def sendMessage():
                 file = True
             except UnicodeDecodeError:
                 return render_template('ergebnis.html', message="Fehler: Die Datei muss UTF-8 kodiert sein.")
-    if request.form.get('encrypt') == 'encrypt':
+    print(request.form.get('encrypt'))
+    if request.form.get('encrypt') == 'encrypt': #TODO Fix function
         return send_message(message, password, file)
     else:
         if fileCheck == True:
@@ -48,8 +52,11 @@ def sendMessage():
         return decrypt(message, password, file)
 
 def send_message(message, password, file=False):
-    message = message.strip().decode()
-    password = password.strip().encode()
+    print(type(message))
+
+    if not isinstance(message, bytes):
+        message = message.encode()
+    password = password.encode()
     print(message)
     if not message or not password:
         return render_template('ergebnis.html', message="Fehler: Nachricht und Passwort dürfen nicht leer sein.")

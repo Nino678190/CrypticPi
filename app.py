@@ -29,10 +29,15 @@ def encryption_key_gen(password):
 def index():
     return render_template('index.html')
 
+@app.route('/test')
+def test():
+    return render_template('index2.html')
+
 @app.route('/sendMessage', methods=['POST'])
 def sendMessage():
     message = request.form.get('message')
     password = request.form.get('password')
+    print("Received message:", message, "with password:", password)
     if request.form.get('encrypt') == 'encrypt':
         return send_message(message, password)
     else:
@@ -51,15 +56,22 @@ def encrypt(message, password):
     except Exception as e:
         return render_template('ergebnis.html', message="Fehler: " + str(e))
 
+# ...existing code...
 def send_message(message, password):
-    if not isinstance(message, bytes):
+    # Validate presence before attempting to encode
+    if message is None or password is None:
+        return render_template('ergebnis.html', message="Fehler: Nachricht und Passwort dürfen nicht leer sein.")
+    # Convert str inputs to bytes, leave bytes as-is
+    if isinstance(message, str):
         message = message.encode()
-    password = password.encode()
+    if isinstance(password, str):
+        password = password.encode()
+    # Ensure non-empty bytes
     if not message or not password:
         return render_template('ergebnis.html', message="Fehler: Nachricht und Passwort dürfen nicht leer sein.")
-    # Pad the message to be a multiple of 16 bytes
+    # Encrypt the message (encrypt expects bytes)
     ciphertext = encrypt(message, password)
-    if len(ciphertext) > 250:
+    if isinstance(ciphertext, str) and len(ciphertext) > 250:
         # Create in-memory file
         mem_file = BytesIO()
         mem_file.write(ciphertext.encode())
@@ -72,6 +84,7 @@ def send_message(message, password):
             mimetype='text/plain'
         )
     return render_template('ergebnis.html', message=ciphertext)
+# ...existing code...
 
 def decrypt_message(ciphertext, password):
     try:
@@ -103,4 +116,7 @@ def decrypt(ciphertext, password):
     except UnicodeDecodeError:
         return render_template('ergebnis.html', message="Fehler: Falscher Input oder Passwort")
     
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
 
